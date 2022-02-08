@@ -12,5 +12,20 @@ data:
         - match:
             - receiver: "dump"
     receivers:
-      - name: "dump"
-        stdout: {}
+    - name: "dump"
+    elasticsearch:
+      hosts:
+        - http://localhost:9200
+      index: kube-events
+      # Ca be used optionally for time based indices, accepts Go time formatting directives
+      indexFormat: "kube-events-{2006-01-02}"
+      username: # optional
+      password: # optional
+      cloudID: # optional
+      apiKey: # optional
+      # If set to true, it allows updating the same document in ES (might be useful handling count)
+      useEventID: true|false
+      # Type should be only used for clusters Version 6 and lower.
+      # type: kube-event
+      # If set to true, all dots in labels and annotation keys are replaced by underscores. Defaults false
+      deDot: true|false
